@@ -1,0 +1,247 @@
+/* FILEPATH: /C:/Users/Gunawan/Desktop/Dicoding FE/tugas_akhir_bookshelf/styles/style.css */
+
+/* Body */
+body, html {
+  background-color: #f0f0f0;
+  color: #333333;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Header */
+header {
+  background-color: #1a237e;
+  color: #ffffff;
+  padding: 16px;
+  text-align: center; 
+}
+
+header h1 {
+  margin: 0;
+}
+
+/* Main */
+main {
+  padding: 20px;
+}
+
+/* Form */
+form {
+  margin-bottom: 20px;
+}
+
+.form-title {
+  margin: auto;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-box {
+  display: block;
+  flex: auto;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="checkbox"],
+button {
+  margin-bottom: 10px;
+  padding: 5px;
+  border: none;
+  border-radius: 3px;
+}
+
+button {
+  background-color: #1a237e;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #2525ba;
+}
+
+button span {
+  font-weight: bold;
+}
+
+/* Book List */
+#incompleteBookList,
+#completeBookList {
+  margin-bottom: 20px;
+}
+
+#incompleteBookList div,
+#completeBookList div {
+  background-color: #e1e2df;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 9px;
+}
+
+#incompleteBookList h3,
+#completeBookList h3 {
+  margin: 0;
+}
+
+#incompleteBookList p,
+#completeBookList p {
+  margin: 0;
+}
+
+#incompleteBookList button,
+#completeBookList button {
+  margin-right: 5px;
+}
+
+.container {
+    width: 800px;
+    border-radius: 8px;
+    background: #cdcfd2;
+    padding: 20px;
+    flex-grow: 1;
+    height: fit-content;
+    margin: auto;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+img {
+    max-width: 20%;
+    float: left;
+    height: auto;
+    position: fixed;
+    bottom: 0;
+}
+
+.toast {
+  visibility: hidden;
+  min-width: 250px;
+  margin-left: -125px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  bottom: 30px;
+  font-size: 17px;
+}
+
+.toast.show {
+  visibility: visible;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+
+button[data-testid="bookItemIsCompleteButton"] {
+  color: white;
+  background-color: green;
+}
+button[data-testid="bookItemIsCompleteButton"]:hover {
+  color: white;
+  background-color: rgb(112, 217, 112);
+}
+
+
+
+button[data-testid="bookItemDeleteButton"] {
+  color: white;
+  background-color: red;
+}
+
+button[data-testid="bookItemDeleteButton"]:hover {
+  color: white;
+  background-color: rgb(240, 107, 107);
+}
+
+
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 30px;
+  background-color: #e1e2df;
+  border-radius: 8px;
+  box-shadow: 0 5px 10px rgba(154, 160, 185, .2), 0 15px 40px rgba(166, 173, 201, .4);
+  z-index: 1000;
+}
+
+.modal>p {
+  font-size: 18px;
+  font-weight: lighter;
+  margin-bottom: 26px;
+}
+
+.modal>button {
+  display: block;
+  width: 100%;
+  background-color: #1a237e;
+  color: #e1e2df;
+  padding: 8px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.modal>button:hover {
+  background-color: #1a237e;
+}
+
+.modal-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 26px;
+}
+
+.modal-icon>span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  color: #e1e2df;
+  background-color: #190482;
+  margin-right: 10px;
+
+}
+
+.backdrop {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+
+#resultBookshelf {
+  background-color: #e1e2df;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 9px;
+}
+
