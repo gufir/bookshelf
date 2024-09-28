@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function addBook() {
     const title = document.getElementById('bookFormTitle').value;
     const author = document.getElementById('bookFormAuthor').value;
-    const year = document.getElementById('bookFormYear').value;
+    const year = parseInt(document.getElementById('bookFormYear').value);
     const isComplete = document.getElementById('bookFormIsComplete').checked;
 
     const generatedID = generateId();
@@ -59,13 +59,13 @@ function generateId() {
     return +new Date();
 }
 
-function generatebookObject(id, title, author, year, isCompleted) {
+function generatebookObject(id, title, author, year, isComplete) {
     return {
-        id,
-        title,
-        author,
-        year,
-        isCompleted
+        id: Number(id), // id as a number
+        title: String(title), // title as a string
+        author: String(author), // author as a string
+        year: Number(year), // year as a number
+        isComplete: Boolean(isComplete) // isCompleted as a boolean
     };
 }
 
@@ -77,7 +77,7 @@ document.addEventListener(RENDER_EVENT, function() {
 
     for(const bookItem of books) {
         const bookElement = makeBook(bookItem);
-        if(bookItem.isCompleted) {
+        if(bookItem.isComplete) {
             listCompleted.append(bookElement);
         } else {
             listUncompleted.append(bookElement);
@@ -88,25 +88,30 @@ document.addEventListener(RENDER_EVENT, function() {
 function makeBook(bookObject) {
     const bookTitle = document.createElement('h3');
     bookTitle.innerText = bookObject.title;
+    bookTitle.setAttribute('data-testid', 'bookItemTitle');
 
     const bookAuthor = document.createElement('p');
     bookAuthor.innerText = `Penulis: ${bookObject.author}`;
+    bookAuthor.setAttribute('data-testid', 'bookItemAuthor');
 
     const bookYear = document.createElement('p');
     bookYear.innerText = `Tahun: ${bookObject.year}`;
+    bookYear.setAttribute('data-testid', 'bookItemYear');
 
     const bookContainer = document.createElement('div');
     bookContainer.setAttribute('data-bookid', bookObject.id);
+    bookContainer.setAttribute('data-testid', 'bookItemContainer');
     bookContainer.setAttribute('data-testid', 'bookItem');
+
     bookContainer.append(bookTitle, bookAuthor, bookYear);
 
-    if (bookObject.isCompleted) {
+    if (bookObject.isComplete) {
         const buttonContainer = document.createElement('div');
         const completeButton = document.createElement('button');
         completeButton.setAttribute('data-testid', 'bookItemIsCompleteButton');
         completeButton.innerText = 'Belum selesai dibaca';
         completeButton.addEventListener('click', function() {
-        uncompletedBook(bookObject.id);
+            uncompletedBook(bookObject.id);
         })
 
         const deleteButton = document.createElement('button');
@@ -131,7 +136,7 @@ function makeBook(bookObject) {
         completeButton.setAttribute('data-testid', 'bookItemIsCompleteButton');
         completeButton.innerText = 'Selesai dibaca';
         completeButton.addEventListener('click', function() {
-        completeBook(bookObject.id);
+            completeBook(bookObject.id);
         })
 
         const deleteButton = document.createElement('button');
@@ -157,7 +162,8 @@ function makeBook(bookObject) {
 
 function completeBook(bookId) {
     const bookIndex = findBookIndex(bookId);
-    books[bookIndex].isCompleted = true;
+    if (bookIndex == null) return;
+    bookIndex.isComplete = true;
     document.dispatchEvent(new Event(RENDER_EVENT));
 
     saveData();
@@ -165,30 +171,32 @@ function completeBook(bookId) {
 
 function uncompletedBook(bookId) {
     const bookIndex = findBookIndex(bookId);
-    books[bookIndex].isCompleted = false;
+
+    if (bookIndex == null) return;
+    bookIndex.isComplete = false;
     document.dispatchEvent(new Event(RENDER_EVENT));
 
     saveData();
 }
 
+
 function removeBook(bookId) {
     const bookIndex = findBookIndex(bookId);
+    if (bookIndex == -1) return;
     books.splice(bookIndex, 1);
+
     document.dispatchEvent(new Event(RENDER_EVENT));
 
     saveData();
 }
 
 function findBookIndex(bookId) {
-    let index = 0;
-    for(const bookItem of books) {
-        if(bookItem.id === bookId) {
+    for (let index = 0; index < books.length; index++) {
+        if (books[index].id === bookId) {
             return index;
         }
-
-        index++;
     }
-
+    
     return -1;
 }
 
@@ -370,7 +378,7 @@ function handleEditSubmit() {
 
     const titleInput = document.getElementById('editBookTitle').value;
     const authorInput = document.getElementById('editBookAuthor').value;
-    const yearInput = document.getElementById('editBookYear').value;
+    const yearInput = parseInt(document.getElementById('editBookYear').value);
 
     const bookIndex = findBookIndex(getBookId);
     bookIndex.id = getBookId;
@@ -410,4 +418,7 @@ function findBookIndex(bookId) {
 
     return null;
 }
+
+
+
 
